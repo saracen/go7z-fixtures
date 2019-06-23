@@ -16,6 +16,27 @@ random_binary:
 	if [ ! -f random_01.bin ]; then dd if=/dev/urandom of=random_01.bin bs=2MiB count=1; fi
 	if [ ! -f random_02.bin ]; then dd if=/dev/urandom of=random_02.bin bs=2MiB count=1; fi
 
+fuzzdata:
+	echo "hello" > hello.txt
+	echo "world" > world.txt
+	7z a corpus/ppmd-01.7z hello.txt -m0=ppmd
+	7z a corpus/ppmd-02.7z *.txt -m0=ppmd
+	7z a corpus/bzip2-01.7z hello.txt -m0=bzip2
+	7z a corpus/bzip2-02.7z *.txt -m0=bzip2
+	7z a corpus/deflate-01.7z hello.txt -m0=deflate
+	7z a corpus/deflate-02.7z *.txt -m0=deflate
+	7z a corpus/copy-01.7z hello.txt -m0=copy
+	7z a corpus/copy-02.7z *.txt -m0=copy
+	7z a corpus/copy-01.7z hello.txt -m0=copy
+	7z a corpus/copy-02.7z *.txt -m0=copy
+	7z a corpus/ppmd-bzip2-deflate-copy-01.7z hello.txt -m0=ppmd -m1=bzip2 -m2=deflate -m3=copy
+	7z a corpus/ppmd-bzip2-deflate-copy-02.7z *.txt -m0=ppmd -m1=bzip2 -m2=deflate -m3=copy
+	7z a corpus/chain-01.7z hello.txt -m0=BCJ -m1=LZMA:d=21 -ms -mmt
+	7z a corpus/chain-02.7z hello.txt -m0=BCJ2 -m1=LZMA:d=21 -ms -mmt
+	7z a corpus/chain-03.7z hello.txt -m0=delta:2 -m1=delta:2 -m2=lzma:fb128
+	rm hello.txt
+	rm world.txt
+
 testdata: random_binary helloworld
 	# empty archive
 	7z a archives/empty.7z *.nothing

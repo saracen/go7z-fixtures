@@ -21,6 +21,8 @@ type Fixture struct {
 	Name    string
 	Size    int64
 
+	Entries int
+
 	ReadSeekerCloser
 }
 
@@ -45,17 +47,17 @@ func (tags Tags) HasAny(any []string) bool {
 }
 
 var allFixtures = []Fixture{
-	{ Archive: "executables", Tags: []string{"executable", "bcj2", "386", "amd64", "arm", "ppc"} },
-	{ Archive: "executables-bcj2-386-amd64", Tags: []string{"executable", "bcj2", "386", "amd64"} },
-	{ Archive: "executables-bcj2", Tags: []string{"executable", "bcj2", "386", "amd64"} },
-	{ Archive: "bzip2", Tags: []string{"random", "bzip2"} },
-	{ Archive: "copy", Tags: []string{"random", "copy"} },
-	{ Archive: "deflate", Tags: []string{"random", "deflate"} },
-	{ Archive: "delta-lzma", Tags: []string{"random", "delta", "lzma"} },
-	{ Archive: "delta", Tags: []string{"random", "delta"} },
-	{ Archive: "empty", Tags: []string{"empty"} },
-	{ Archive: "ppmd-bzip2-deflate-copy", Tags: []string{"ppmd", "bzip2", "deflate", "copy" } },
-	{ Archive: "ppmd", Tags: []string{"ppmd" } },
+	{ Archive: "executables", Entries: 10, Tags: []string{"executable", "bcj2", "386", "amd64", "arm", "ppc"} },
+	{ Archive: "executables-bcj2-386-amd64", Entries: 2, Tags: []string{"executable", "bcj2", "386", "amd64"} },
+	{ Archive: "executables-bcj2", Entries: 10, Tags: []string{"executable", "bcj2", "386", "amd64"} },
+	{ Archive: "bzip2", Entries: 1, Tags: []string{"random", "bzip2"} },
+	{ Archive: "copy", Entries: 1, Tags: []string{"random", "copy"} },
+	{ Archive: "deflate", Entries: 1, Tags: []string{"random", "deflate"} },
+	{ Archive: "delta-lzma", Entries: 2, Tags: []string{"random", "delta", "lzma"} },
+	{ Archive: "delta", Entries: 2, Tags: []string{"random", "delta"} },
+	{ Archive: "empty", Entries: 0, Tags: []string{"empty"} },
+	{ Archive: "ppmd-bzip2-deflate-copy", Entries: 2, Tags: []string{"ppmd", "bzip2", "deflate", "copy" } },
+	{ Archive: "ppmd", Entries: 1, Tags: []string{"ppmd" } },
 }
 
 var fixtureDir string
